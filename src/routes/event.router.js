@@ -1,7 +1,10 @@
 import express from 'express';
-import { findById, list, save } from '../controllers/event.controller.js';
+import { findById, findByTitle, list, save } from '../controllers/event.controller.js';
 
 const router = express.Router();
+
+router.route('/title/:title')
+    .get(findByTitle)
 
 router.route('/')
     .get( list )
@@ -9,6 +12,7 @@ router.route('/')
 
 router.route('/:event_id')
     .get(findById)
+
 
 
 export default router

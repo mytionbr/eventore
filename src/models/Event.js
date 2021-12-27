@@ -6,7 +6,7 @@ export default class Event {
         this.description = undefined
         this.start_at = undefined
         this.end_at = undefined
-        this.creted_at = undefined
+        this.created_at = undefined
         this.updated_at = undefined
         this.user = {
             name:undefined,

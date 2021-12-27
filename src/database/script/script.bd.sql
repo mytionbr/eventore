@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS USER_TABLE (
 	name VARCHAR (255) NOT NULL,
 	email VARCHAR (255) NOT NULL,
 	password VARCHAR (255) NOT NULL,
-	creted_at TIMESTAMP NOT NULL,
+	created_at TIMESTAMP NOT NULL,
 	updated_at TIMESTAMP NOT NULL,
 	CONSTRAINT unique_user_email UNIQUE (email)
 );
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS EVENT_TABLE (
 	description TEXT,
 	start_at TIMESTAMP NOT NULL,
 	end_at TIMESTAMP NOT NULL,
-	creted_at TIMESTAMP NOT NULL,
+	created_at TIMESTAMP NOT NULL,
 	updated_at TIMESTAMP NOT NULL,
 	user_id INT NOT NULL
 );

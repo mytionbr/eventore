@@ -1,12 +1,14 @@
 import EventService from '../services/event.service.js';
 
 export const list = async (req, res) => {
+
   try {
     const event = new EventService();
     const events = await event.list();
 
     res.status(200).json(events);
   } catch (err) {
+    console.log(err)
     res.status(400).json({
       message: err.message,
     });
@@ -22,6 +24,7 @@ export const findById = async (req, res) => {
 
     res.status(200).json(eventFound);
   } catch (err) {
+    
     res.status(400).json({
       message: err.message,
     });
@@ -30,7 +33,7 @@ export const findById = async (req, res) => {
 
 export const findByTitle = async (req, res) => {
   try {
-    const { title } = req.body;
+    const title = req.params.title;
 
     const event = new EventService();
 
