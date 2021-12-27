@@ -1,21 +1,24 @@
-import pg from 'pg'
+import pg from 'pg';
 const { Pool } = pg;
 
 class PoolClass {
-    _pool = null;
+  
+  constructor(){
+    this._pool = null
+  }
+  
+  connect(option) {
+    this._pool = new Pool(option);
+    return this._pool.query('SELECT 1+1 ;');
+  }
 
-    connect(option){
-        this._pool = new Pool(option)
-        return this._pool.query("SELECT 1+1 ;")
-    }
+  query(sql, values) {
+    return this._pool.query(sql, values);
+  }
 
-    query(sql, values){
-        return this._pool.query(sql,values)
-    }
-
-    close(){
-        return this._pool.end()
-    }
+  close() {
+    return this._pool.end();
+  }
 }
 
-export default new PoolClass()
+export default new PoolClass();

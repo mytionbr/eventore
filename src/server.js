@@ -1,18 +1,19 @@
 import app from './app.js';
 import config from './config/config.js';
+import pool from './database/pool.js';
 
 pool
   .connect(config.dbDetails)
-  .then(()=>{
-    console.log('Connected database')
+  .then(() => {
+    console.log('Connected database');
 
-    app.listen(config.PORT, ()=>{
-      console.log('Server is running')
-    })
+    app.listen(config.PORT, () => {
+      console.log('Server is running');
+    });
   })
-  .catch((err)=>{
-    console.log(`Error: ${err.message}`)
-  })
+  .catch((err) => {
+    console.log(`Error: ${err.message}`);
+  });
 
 app.listen(config.port, () => {
   console.log(`Server is running at ${config.port}`);
