@@ -9,8 +9,22 @@ export default class EventService {
 
     async list(){
         const events = await this.repositorie.list();
-
         return events;
+    }
+
+    async findById(event_id){
+        const eventFound = await this.repositorie.findById(event_id);
+        return eventFound;
+    }
+
+    async findByTitle(title){
+        const eventsFound = await this.repositorie.findByTitle(title);
+        return eventsFound;
+    }
+
+    async save(eventReceived) {
+        const createdEvent = await this.repositorie.save(eventReceived);
+        return createdEvent;
     }
 
 }
