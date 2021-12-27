@@ -12,17 +12,16 @@
     "style:check": "prettier --check src/**/*.js",
     "style:fix": "prettier --write src/**/*.js",
     "test": "yarn lint && yarn style:check && yarn test:unit && yarn test:functional",
-    "test:unit":"jest",
+    "test:unit": "jest",
     "test:functional": "jest --projects ./test --runInBand"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.5.0",
+    "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-react": "^7.28.0",
-    "jest": "^27.4.5",
-    "prettier": "^2.5.1",
-    "supertest": "^6.1.6"
+    "prettier": "^2.5.1"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
