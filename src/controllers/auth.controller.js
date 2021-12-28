@@ -77,3 +77,16 @@ export const isAuth = async (req, res, next) =>{
     }
 }
 
+export const hasAuthorization = (req, res, next) =>{
+
+    const profile_id = req.body.user_id || req.params.user_id
+
+    const isAuthorized = profile_id && req.auth && String(profile_id) === String(req.auth._id)
+   
+    if(!isAuthorized){
+        return res.status(403).json({
+            message: "The user is not authorized"
+        })
+    }
+    next()
+}

@@ -1,6 +1,6 @@
 import express from 'express';
 import { findById, findByName, findEventsRegistered, findMyOwnEvents, list, save, update } from '../controllers/user.controller.js';
-import { isAuth } from '../controllers/auth.controller.js';
+import { hasAuthorization, isAuth } from '../controllers/auth.controller.js';
 
 const router = express.Router();
 
@@ -19,6 +19,6 @@ router.route('/:user_id')
 router.route('/')
     .post( save )
     .get( isAuth,list )
-    .put( isAuth,update )
+    .put( isAuth,hasAuthorization,update )
 
 export default router;
