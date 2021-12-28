@@ -9,14 +9,23 @@ export default class AttendeeService {
 
     async save(receivedData){
         const registrationConfirmation = await this.repository.confirmRegistration(receivedData);
-        /**
-         * confirming that the user's registration for the event already exists
-         */
+    
         if(registrationConfirmation){
            throw new Error('The user has already registered for this event.');
         }
 
         const createdAttendee = await this.repository.save(receivedData);
         return createdAttendee;
+    }
+
+    async unregister(receivedData){
+        const registrationConfirmation = await this.repository.confirmRegistration(receivedData);
+        
+        if(!registrationConfirmation){
+           throw new Error('User is not registered for this event');
+        }
+
+        const removedRegister = await this.repository.unregister(receivedData);
+        return removedRegister;
     }
 }

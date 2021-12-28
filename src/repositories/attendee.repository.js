@@ -31,6 +31,17 @@ export default class AttendeeRepository extends Repository {
         return this.alreadyExists(result);
     }
 
+    async unregister(receivedData){
+        const query = `DELETE FROM ATTENDEE_TABLE WHERE attendee_id = $1 RETURNING *; `
+        const params = [
+            receivedData.attendee_id
+        ]
+
+        const result = await this.query(query,params);
+        const removedAttendee = result[0];
+        return removedAttendee;
+    }
+
     alreadyExists(result){
         return result[0] ? true : false;
     }
