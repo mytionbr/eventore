@@ -1,18 +1,8 @@
 import moment from 'moment';
 import hasPasswordChanged from '../util/hasPasswordChanged.js';
+import Repository from './repository.js';
 
-export default class UserRepository {
-    constructor(pool) {
-      this.pool = pool;
-    }
-
-    async query(query, params = undefined) {
-        const { rows } = params
-          ? await this.pool.query(query, params)
-          : await this.pool.query(query);
-        
-        return rows;
-      }
+export default class UserRepository extends Repository{
 
       async save(receivedUser) {
         const created_at = moment().format('YYYY-MM-DD h:mm:ss');

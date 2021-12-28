@@ -12,7 +12,7 @@ export const save = async (req, res) => {
       password,
     }
 
-    const createdUser = userService.save(receivedUser);
+    const createdUser = await userService.save(receivedUser);
 
     res.status(201).json(createdUser);
   } catch (err) {

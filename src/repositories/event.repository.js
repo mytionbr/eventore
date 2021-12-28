@@ -3,19 +3,10 @@ import {
   getNomalizedList,
 } from '../util/event/getNomalizedEventData.js';
 import moment from 'moment';
-export default class EventRepository {
-  constructor(pool) {
-    this.pool = pool;
-  }
+import Repository from './repository.js';
 
-  async query(query, params = undefined) {
-    const { rows } = params
-      ? await this.pool.query(query, params)
-      : await this.pool.query(query);
-    
-    return rows;
-  }
-
+export default class EventRepository extends Repository {
+  
   async list() {
    
     const query = `SELECT EVENT_TABLE.event_id, EVENT_TABLE.title, EVENT_TABLE.location, EVENT_TABLE.description, EVENT_TABLE.start_at,

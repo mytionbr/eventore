@@ -10,7 +10,6 @@ export default class UserService {
     }
 
     async save(receivedUser) {
-
         receivedUser.password = passwordHashing(receivedUser.password)
         const createdUser = await this.repository.save(receivedUser);
         return createdUser;
@@ -25,7 +24,7 @@ export default class UserService {
         if(hasPasswordChanged(receivedUser.password)){
             receivedUser.password = passwordHashing(receivedUser.password);   
         }
-       const updatedUser =await this.repository.update(receivedUser);
+       const updatedUser = await this.repository.update(receivedUser);
        return updatedUser;
     }
 
