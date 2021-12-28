@@ -1,4 +1,5 @@
 import moment from 'moment';
+import hasPasswordChanged from '../util/hasPasswordChanged.js';
 
 export default class UserRepository {
     constructor(pool) {
@@ -33,9 +34,25 @@ export default class UserRepository {
       }
 
       async list (){
-        const query = `SELECT USER_TABLE.user_id ,USER_TABLE.name, USER_TABLE.email FROM USER_TABLE`;
+        const query = `SELECT USER_TABLE.user_id, USER_TABLE.name, USER_TABLE.email FROM USER_TABLE`;
 
         const users = await this.query(query);
         return users;
       }
+
+      async update(receivedUser){
+        let query, params;
+        const updated_at =  moment().format('YYYY-MM-DD h:mm:ss');
+        if(hasPasswordChanged(receivedUser.password)){
+          query = `UPDATE USER_TABLE SET name = $1, email = $2, password = $3, updated_at = $4 RETURNING user_id, name, email`;
+          params = [receivedUser.name, receivedUser.email, receivedUser.password, updated_at];
+        } else {
+          query = `UPDATE USER_TABLE SET name = $1, email = $2, updated_at = $3 RETURNING user_id, name, email`;
+          params = [receivedUser.name, receivedUser.email, updated_at];
+        }
+
+        const updatedUser = await this.query(query, params);
+        return updatedUser;
+      }
+
 }

@@ -36,3 +36,26 @@ export const list = async (req,res) => {
     });
   }
 }
+
+export const update = async (req,res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    const receivedUser = {
+      name,
+      email,
+      password,
+    }
+
+    const userService = new UserService();
+
+    const updatedUser = await userService.update(receivedUser);
+
+    res.status(200).json(updatedUser)
+
+  } catch (err){
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+}

@@ -1,6 +1,7 @@
 import pool from '../database/pool.js';
 import UserRepository from '../repositories/user.repository.js';
-import bcrypt from 'bcrypt'
+import passwordHashing from '../util/passwordHashing.js';
+import hasPasswordChanged from '../util/hasPasswordChanged.js';
 
 export default class UserService {
     constructor(){
@@ -9,8 +10,8 @@ export default class UserService {
     }
 
     async save(receivedUser) {
-        // hashing the user's password
-        receivedUser.password = bcrypt.hashSync(receivedUser.password,8)
+
+        receivedUser.password = passwordHashing(receivedUser.password)
         const createdUser = await this.repository.save(receivedUser);
         return createdUser;
     }
@@ -19,4 +20,14 @@ export default class UserService {
         const users = await this.repository.list();
         return users;
     }
+
+    async update(receivedUser){
+        if(hasPasswordChanged(receivedUser.password)){
+            receivedUser.password = passwordHashing(receivedUser.password);   
+        }
+       const updatedUser =await this.repository.update(receivedUser);
+       return updatedUser;
+    }
+
+    
 }
