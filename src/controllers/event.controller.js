@@ -56,9 +56,7 @@ export const save = async (req, res) => {
       description,
       start_at,
       end_at,
-      creted_at,
-      updated_at,
-      user_id,
+      user_id
     } = req.body;
 
     const event = new EventService();
@@ -70,14 +68,46 @@ export const save = async (req, res) => {
       description,
       start_at,
       end_at,
-      creted_at,
-      updated_at,
       user_id
     }
 
     const createdEvent = await event.save(receivedEvent);
 
     res.status(200).json(createdEvent);
+  } catch (err) {
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const {
+      title,
+      event_id,
+      location,
+      description,
+      start_at,
+      end_at,
+      user_id
+    } = req.body;
+
+    const event = new EventService();
+
+    const receivedEvent = {
+      title,
+      event_id,
+      location,
+      description,
+      start_at,
+      end_at,
+      user_id
+    }
+
+    const updatedEvent = await event.update(receivedEvent);
+
+    res.status(200).json(updatedEvent);
   } catch (err) {
     res.status(400).json({
       message: err.message,

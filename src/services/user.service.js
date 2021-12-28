@@ -34,5 +34,10 @@ export default class UserService {
         return usersFound;
     }
 
+    async findById(user_id){
+        const userFound = await this.repository.findById(user_id);
+        return userFound;
+    }
+
     
 }

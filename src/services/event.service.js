@@ -27,4 +27,8 @@ export default class EventService {
         return createdEvent;
     }
 
+    async update(receivedEvent) {
+        const updatedEvent =  await this.repository.update(receivedEvent);
+        return updatedEvent;
+    }
 }

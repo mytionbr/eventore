@@ -1,5 +1,5 @@
 import express from 'express';
-import { findById, findByTitle, list, save } from '../controllers/event.controller.js';
+import { findById, findByTitle, list, save, update } from '../controllers/event.controller.js';
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.route('/title/:title')
 router.route('/')
     .get( list )
     .post( save )
+    .put( update )
 
 router.route('/:event_id')
     .get(findById)

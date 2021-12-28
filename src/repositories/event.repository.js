@@ -36,8 +36,8 @@ export default class EventRepository {
 
     const result = await this.query(query, params);
   
-      const nomalizedEvent = getNomalized(result[0]);
-      return nomalizedEvent;
+    const nomalizedEvent = getNomalized(result[0]);
+    return nomalizedEvent;
   }
 
   async findByTitle(title) {
@@ -78,5 +78,21 @@ export default class EventRepository {
 
     const createdEvent = await this.query(query, params);
     return createdEvent;
+  }
+
+  async update(receivedEvent){
+    const query = `UPDATE EVENT_TABLE SET title = $1, location = $2, description = $3, start_at = $4, end_at = $5 WHERE event_id = $6 RETURNING *;`
+    const params = [
+      receivedEvent.title,
+      receivedEvent.location,
+      receivedEvent.description,
+      receivedEvent.start_at,
+      receivedEvent.end_at,
+      receivedEvent.user_id
+    ];
+
+    const result = await this.query(query,params);
+    const updatedEvent = result[0];
+    return updatedEvent;
   }
 }

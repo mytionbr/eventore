@@ -44,11 +44,11 @@ export default class UserRepository {
         let query, params;
         const updated_at =  moment().format('YYYY-MM-DD h:mm:ss');
         if(hasPasswordChanged(receivedUser.password)){
-          query = `UPDATE USER_TABLE SET name = $1, email = $2, password = $3, updated_at = $4 RETURNING user_id, name, email`;
-          params = [receivedUser.name, receivedUser.email, receivedUser.password, updated_at];
+          query = `UPDATE USER_TABLE SET name = $1, email = $2, password = $3, updated_at = $4 WHERE user_id = $5 RETURNING user_id, name, email`;
+          params = [receivedUser.name, receivedUser.email, receivedUser.password, updated_at, receivedUser.user_id ];
         } else {
-          query = `UPDATE USER_TABLE SET name = $1, email = $2, updated_at = $3 RETURNING user_id, name, email`;
-          params = [receivedUser.name, receivedUser.email, updated_at];
+          query = `UPDATE USER_TABLE SET name = $1, email = $2, updated_at = $3 WHERE user_id = $4 RETURNING user_id, name, email`;
+          params = [receivedUser.name, receivedUser.email, updated_at,receivedUser.user_id];
         }
 
         const updatedUser = await this.query(query, params);
@@ -63,4 +63,15 @@ export default class UserRepository {
 
         return usersFound;
       }
+
+      async findById(user_id){
+        const query = `SELECT name, email, user_id FROM USER_TABLE WHERE user_id = $1;`;
+        const params = [user_id];
+
+        const result = await this.query(query,params);
+        const userFound = result[0];
+        return userFound;
+      }
+
+      
 }
