@@ -1,5 +1,5 @@
 import express from 'express';
-import { findById, findByName, findMyOwnEvents, list, save, update } from '../controllers/user.controller.js';
+import { findById, findByName, findEventsRegistered, findMyOwnEvents, list, save, update } from '../controllers/user.controller.js';
 
 const router = express.Router();
 
@@ -8,6 +8,9 @@ router.route('/name/:name')
 
 router.route('/:user_id/events/own')
     .get( findMyOwnEvents )
+
+router.route('/:user_id/events/registered')
+    .get( findEventsRegistered )
 
 router.route('/:user_id')
     .get( findById )

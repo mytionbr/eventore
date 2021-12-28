@@ -42,5 +42,10 @@ export default class UserService {
         const events = await this.repository.findMyOwnEvents(user_id);
         return events;
     }
+
+    async findEventsRegistered(user_id){
+        const events = await this.repository.findEventsRegistered(user_id);
+        return events;
+    }
     
 }
