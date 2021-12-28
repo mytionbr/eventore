@@ -2,7 +2,10 @@ import pool from '../database/pool.js';
 import EventRepository from '../repositories/event.repository.js';
 
 export default class EventService {
-   c
+    constructor(){
+        this.pool = pool;
+        this.repository = new EventRepository(this.pool)
+    }
 
     async list(){
         const events = await this.repository.list();

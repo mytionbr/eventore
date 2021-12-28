@@ -51,7 +51,7 @@ export default class EventRepository extends Repository {
   async save(receivedEvent) {
     const created_at = moment().format('YYYY-MM-DD h:mm:ss');
     const updated_at = created_at;
-
+    
     const query = `INSERT INTO EVENT_TABLE (title, location,
     description, start_at, end_at, created_at, updated_at, user_id) 
     VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;`;
@@ -66,6 +66,7 @@ export default class EventRepository extends Repository {
       updated_at,
       receivedEvent.user_id,
     ];
+    
 
     const createdEvent = await this.query(query, params);
     return createdEvent;

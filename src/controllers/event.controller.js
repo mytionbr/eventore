@@ -51,7 +51,6 @@ export const save = async (req, res) => {
   try {
     const {
       title,
-      event_id,
       location,
       description,
       start_at,
@@ -59,19 +58,18 @@ export const save = async (req, res) => {
       user_id
     } = req.body;
 
-    const event = new EventService();
-
+    const eventService = new EventService();
+    
     const receivedEvent = {
       title,
-      event_id,
       location,
       description,
       start_at,
       end_at,
       user_id
     }
-
-    const createdEvent = await event.save(receivedEvent);
+    
+    const createdEvent = await eventService.save(receivedEvent);
 
     res.status(200).json(createdEvent);
   } catch (err) {

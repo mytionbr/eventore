@@ -2,6 +2,8 @@ import AuthService from "../services/auth.service.js";
 import generateToken from "../util/auth/generateToken.js";
 import isPasswordCorrect from "../util/auth/isPasswordCorrect.js";
 import isRegisteredUser from "../util/isRegisteredUser.js";
+import jwt from 'jsonwebtoken'
+import config from "../config/config.js";
 
 export const signin = async (req,res)=>{
     try {
@@ -11,8 +13,6 @@ export const signin = async (req,res)=>{
             user_email,
             user_password
         }
-
-        console.log(user_email,user_password)
 
         const authService = new AuthService();
 
@@ -49,6 +49,31 @@ export const signin = async (req,res)=>{
         res.status(401).json({
             message: 'Unable to login'
         })
+    }
+}
+
+export const isAuth = async (req, res, next) =>{
+    const authorization = req.headers.authorization;
+    try {
+        if(authorization){
+            const token = authorization.slice(7, authorization.length)
+            jwt.verify(
+                token,
+                config.jwt_secret,
+                (err, decode) =>{ 
+                    if(err){
+                        res.status(401).json({message: 'invalid token'})
+                    } else {
+                        req.auth = decode
+                        next()
+                    }
+                }
+            )
+        } else {
+            res.status(401).json({message: 'No token'})
+        }    
+    } catch (err) {
+        res.status(401).json({message: 'No token'})
     }
 }
 
