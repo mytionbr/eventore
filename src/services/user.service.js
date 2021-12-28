@@ -38,5 +38,9 @@ export default class UserService {
         return userFound;
     }
 
+    async findMyOwnEvents(user_id){
+        const events = await this.repository.findMyOwnEvents(user_id);
+        return events;
+    }
     
 }

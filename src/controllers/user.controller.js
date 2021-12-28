@@ -95,3 +95,21 @@ export const findById = async (req,res) => {
     });
   }
 }
+
+export const findMyOwnEvents = async (req,res)=>{
+  try {
+    const { user_id } = req.params;
+
+    const userService = new UserService();
+    
+    const events = await userService.findMyOwnEvents(user_id);
+
+    res.status(200).json(events);
+
+    
+  } catch (err) {
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+}

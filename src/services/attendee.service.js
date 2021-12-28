@@ -34,4 +34,6 @@ export default class AttendeeService {
         const attenddes = await this.repository.findByEvent(event_id);
         return attenddes;
     }
+
+    
 }

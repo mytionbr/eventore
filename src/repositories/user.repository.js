@@ -63,5 +63,16 @@ export default class UserRepository extends Repository{
         return userFound;
       }
 
+      async findMyOwnEvents(user_id){
+        const query = `SELECT EVENT_TABLE.event_id, EVENT_TABLE.title FROM EVENT_TABLE 
+            INNER JOIN USER_TABLE ON EVENT_TABLE.user_id = USER_TABLE.user_id
+            WHERE EVENT_TABLE.user_id = $1`;
+
+        const params = [user_id];
+
+        const events = await this.query(query,params);
+        return events;
+    }
+
       
 }
