@@ -3,8 +3,8 @@ import EventService from '../services/event.service.js';
 export const list = async (req, res) => {
 
   try {
-    const event = new EventService();
-    const events = await event.list();
+    const eventService = new EventService();
+    const events = await eventService.list();
 
     res.status(200).json(events);
   } catch (err) {
@@ -18,9 +18,9 @@ export const list = async (req, res) => {
 export const findById = async (req, res) => {
   try {
     const event_id = req.params["event_id"];
-    const event = new EventService();
+    const eventService = new EventService();
 
-    const eventFound = await event.findById(event_id);
+    const eventFound = await eventService.findById(event_id);
 
     res.status(200).json(eventFound);
   } catch (err) {
@@ -63,7 +63,7 @@ export const save = async (req, res) => {
 
     const event = new EventService();
 
-    const eventReceived = {
+    const receivedEvent = {
       title,
       event_id,
       location,
@@ -75,7 +75,7 @@ export const save = async (req, res) => {
       user_id
     }
 
-    const createdEvent = await event.save(eventReceived);
+    const createdEvent = await event.save(receivedEvent);
 
     res.status(200).json(createdEvent);
   } catch (err) {

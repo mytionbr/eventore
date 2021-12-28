@@ -4,13 +4,15 @@ export const save = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const user = new UserService();
+    const userService = new UserService();
 
-    const createdUser = user.save({
+    const receivedUser = {
       name,
       email,
       password,
-    });
+    }
+
+    const createdUser = userService.save(receivedUser);
 
     res.status(201).json(createdUser);
   } catch (err) {
@@ -19,3 +21,18 @@ export const save = async (req, res) => {
     });
   }
 };
+
+export const list = async (req,res) => {
+  try {
+    const userService = new UserService();
+
+    const users = await userService.list();
+
+    res.status(200).json(users)
+
+  } catch (err){
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+}

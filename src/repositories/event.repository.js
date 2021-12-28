@@ -3,7 +3,7 @@ import {
   getNomalizedList,
 } from '../util/event/getNomalizedEventData.js';
 import moment from 'moment';
-export default class EventRepositore {
+export default class EventRepository {
   constructor(pool) {
     this.pool = pool;
   }
@@ -57,7 +57,7 @@ export default class EventRepositore {
     }
   }
 
-  async save(eventReceived) {
+  async save(receivedEvent) {
     const created_at = moment().format('YYYY-MM-DD h:mm:ss');
     const updated_at = created_at;
 
@@ -66,14 +66,14 @@ export default class EventRepositore {
     VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;`;
 
     const params = [
-      eventReceived.title,
-      eventReceived.location,
-      eventReceived.description,
-      eventReceived.start_at,
-      eventReceived.end_at,
+      receivedEvent.title,
+      receivedEvent.location,
+      receivedEvent.description,
+      receivedEvent.start_at,
+      receivedEvent.end_at,
       created_at,
       updated_at,
-      eventReceived.user_id,
+      receivedEvent.user_id,
     ];
 
     const createdEvent = await this.query(query, params);

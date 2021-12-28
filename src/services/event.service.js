@@ -1,29 +1,29 @@
 import pool from '../database/pool.js';
-import EventRepositore from '../repositories/event.repositore.js';
+import EventRepository from '../repositories/event.repository.js';
 
 export default class EventService {
     constructor(){
         this.pool = pool;
-        this.repositorie = new EventRepositore(this.pool)
+        this.repository = new EventRepository(this.pool)
     }
 
     async list(){
-        const events = await this.repositorie.list();
+        const events = await this.repository.list();
         return events;
     }
 
     async findById(event_id){
-        const eventFound = await this.repositorie.findById(event_id);
+        const eventFound = await this.repository.findById(event_id);
         return eventFound;
     }
 
     async findByTitle(title){
-        const eventsFound = await this.repositorie.findByTitle(title);
+        const eventsFound = await this.repository.findByTitle(title);
         return eventsFound;
     }
 
-    async save(eventReceived) {
-        const createdEvent = await this.repositorie.save(eventReceived);
+    async save(receivedEvent) {
+        const createdEvent = await this.repository.save(receivedEvent);
         return createdEvent;
     }
 
