@@ -55,4 +55,12 @@ export default class UserRepository {
         return updatedUser;
       }
 
+     async findByName(name){
+        const query = `SELECT name, email, user_id FROM USER_TABLE WHERE name iLIKE '%'||$1||'%'; `;
+        const params = [name];
+
+        const usersFound = await this.query(query, params);
+
+        return usersFound;
+      }
 }

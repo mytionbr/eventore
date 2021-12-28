@@ -29,5 +29,10 @@ export default class UserService {
        return updatedUser;
     }
 
+    async findByName(name){
+        const usersFound = await this.repository.findByName(name);
+        return usersFound;
+    }
+
     
 }

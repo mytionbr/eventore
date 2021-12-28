@@ -59,3 +59,21 @@ export const update = async (req,res) => {
     });
   }
 }
+
+export const findByName = async (req,res) => {
+  try {
+
+    const name = req.params.name;
+
+    const userService = new UserService();
+
+    const usersFound = await userService.findByName(name);
+
+    res.status(200).json(usersFound);
+
+  } catch (err){
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+}
