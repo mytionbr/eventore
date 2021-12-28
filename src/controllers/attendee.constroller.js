@@ -42,3 +42,20 @@ export const unregister = async (req, res) => {
           });
     }
 }
+
+export const findByEvent = async (req,res)=>{
+    try {
+        const { event_id } = req.params;
+
+        const attendeeService = new AttendeeService();
+        
+        const attendees = await attendeeService.findByEvent(event_id);
+
+        res.status(200).json(attendees);
+        
+    } catch (err) {
+        res.status(400).json({
+            message: err.message,
+          });
+    }
+}

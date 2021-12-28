@@ -1,7 +1,10 @@
 import express from 'express';
-import { register, unregister } from '../controllers/attendee.constroller.js';
+import { findByEvent, register, unregister } from '../controllers/attendee.constroller.js';
 
 const router = express.Router();
+
+router.route('/event/:event_id')
+    .get( findByEvent )
 
 router.route('/')
     .post( register )

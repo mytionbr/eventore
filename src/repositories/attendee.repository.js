@@ -42,6 +42,19 @@ export default class AttendeeRepository extends Repository {
         return removedAttendee;
     }
 
+    async findByEvent(event_id){
+        const query = `SELECT USER_TABLE.name, USER_TABLE.email, USER_TABLE.user_id
+            FROM USER_TABLE INNER JOIN ATTENDEE_TABLE ON ATTENDEE_TABLE.user_id = USER_TABLE.user_id
+            WHERE ATTENDEE_TABLE.event_id = $1;`;
+        
+        const params = [event_id];
+
+        const attendees = await this.query(query,params);
+        
+        return attendees;
+
+    }
+
     alreadyExists(result){
         return result[0] ? true : false;
     }

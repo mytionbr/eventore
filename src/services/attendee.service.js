@@ -28,4 +28,10 @@ export default class AttendeeService {
         const removedRegister = await this.repository.unregister(receivedData);
         return removedRegister;
     }
+
+    async findByEvent(event_id){
+        
+        const attenddes = await this.repository.findByEvent(event_id);
+        return attenddes;
+    }
 }
