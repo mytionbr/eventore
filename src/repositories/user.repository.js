@@ -86,5 +86,14 @@ export default class UserRepository extends Repository{
       return events;
     }
 
+    async findUserByEmail(user_email){
+      
+      const query = `SELECT * FROM USER_TABLE WHERE email = $1`;
+      const params = [user_email];
+
+      const result = await this.query(query,params);
+      const user = result[0];
+      return user;
+    }
       
 }
