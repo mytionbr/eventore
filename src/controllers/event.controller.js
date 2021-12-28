@@ -114,3 +114,20 @@ export const update = async (req, res) => {
     });
   }
 };
+
+
+export const remove = async (req, res) => {
+  try {
+    const event_id = req.params["event_id"];
+    const eventService = new EventService();
+
+    const removedEvent = await eventService.remove(event_id);
+
+    res.status(200).json(removedEvent);
+  } catch (err) {
+    
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+};

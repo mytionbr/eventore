@@ -95,4 +95,14 @@ export default class EventRepository {
     const updatedEvent = result[0];
     return updatedEvent;
   }
+
+  async remove(event_id){
+   const query = `DELETE FROM EVENT_TABLE WHERE event_id = $1 RETURNING *;`;
+   const params = [event_id];
+
+   const result = await this.query(query,params);
+   const removedEvent = result[0];
+   return removedEvent;
+  }
+
 }

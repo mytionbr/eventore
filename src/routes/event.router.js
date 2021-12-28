@@ -1,5 +1,5 @@
 import express from 'express';
-import { findById, findByTitle, list, save, update } from '../controllers/event.controller.js';
+import { findById, findByTitle, list, remove, save, update } from '../controllers/event.controller.js';
 
 const router = express.Router();
 
@@ -13,6 +13,7 @@ router.route('/')
 
 router.route('/:event_id')
     .get(findById)
+    .delete( remove )
 
 
 

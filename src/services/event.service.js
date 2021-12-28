@@ -31,4 +31,9 @@ export default class EventService {
         const updatedEvent =  await this.repository.update(receivedEvent);
         return updatedEvent;
     }
+
+    async remove(event_id){
+        const removedEvent = await this.repository.remove(event_id);
+        return removedEvent;
+    }
 }
