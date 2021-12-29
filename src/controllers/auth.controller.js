@@ -8,7 +8,7 @@ import config from "../config/config.js";
 export const signin = async (req,res)=>{
     try {
         const { user_email, user_password } = req.body;
-
+       
         const receivedData = {
             user_email,
             user_password
