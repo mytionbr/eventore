@@ -14,6 +14,14 @@ const ITEMS = [
     {
         title: 'Agenda',
         path: '/app/schedule'
+    },
+    {
+        title: 'Criar Evento',
+        path: '/app/create'
+    },
+    {
+        title: 'Perfil',
+        path: '/app/profile'
     }
 ]
 

@@ -17,7 +17,7 @@ const ContainerStyled = styled('div')({
 const MainStyle = styled('div')({
   flexGrow: 1,
   overflow: 'auto',
-  minHeight: '100%',
+  height: '100%',
   paddingTop: '2rem',
   paddingBottom: '1rem',
 });
