@@ -12,12 +12,18 @@ const findMyEvents = ({user_id,userInfo}) =>
     headers: { Authorization: `Bearer ${userInfo?.token}` },
   });
 
+const findCommunityEvents = ({userInfo}) =>
+axios.get(`/api/events`,  {
+  headers: { Authorization: `Bearer ${userInfo?.token}` },
+});
+
 
 
 const api = {
     signinUser,
     registerUser,
-    findMyEvents
+    findMyEvents,
+    findCommunityEvents
 }
 
 export default api

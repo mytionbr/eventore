@@ -4,7 +4,7 @@ import Router from './routes';
 import { styled } from '@mui/system';
 
 const RootStyle = styled('div')({
-  height: '100vh',
+  minHeight: '100vh',
   width: '100vw',
   overflow: 'auto'
 });

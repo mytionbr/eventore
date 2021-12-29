@@ -8,7 +8,7 @@ const Page = ({ children, title }) => {
       <Helmet>
         <title>{`${title} | EVENTORE`}</title>
       </Helmet>
-      <Container maxWidth="lg" sx={{height: '100%', overflow: 'auto'}}>
+      <Container maxWidth="lg" sx={{height: '100%'}}>
         <Box>
           <Typography variant="h4">{title}</Typography>
         </Box>
