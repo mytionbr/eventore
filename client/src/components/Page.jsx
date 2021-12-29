@@ -8,13 +8,13 @@ const Page = ({ children, title }) => {
       <Helmet>
         <title>{`${title} | EVENTORE`}</title>
       </Helmet>
-      <Container maxWidth="xl" sx={{ m: 2  }}>
+      <Container maxWidth="lg">
         <Box>
           <Typography variant="h4">{title}</Typography>
         </Box>
-        <Grid container spacing={3} sx={{ py: 3, }}>
+        <Box sx={{py: 2}}>
           {children}
-        </Grid>
+        </Box>
       </Container>
     </>
   );

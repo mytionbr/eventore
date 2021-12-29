@@ -1,23 +1,11 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Table,
-  Typography,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-  Button
-} from '@mui/material';
-import React from 'react';
+import { Button, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import React from 'react'
+import CommunityEventForm from '../components/CommunityEventForm';
 import ModalRight from '../components/ModalRight';
-import MyEventForm from '../components/MyEventForm';
 import Page from '../components/Page';
 
-const MyEventsPage = () => {
-  const [openModal, setOpenModal] = React.useState(false);
+const CommunityPage = () => {
+    const [openModal, setOpenModal] = React.useState(false);
   const [currentEvent, setCurrentEvent] = React.useState(null);
 
   const handleOpenModal = () => {
@@ -30,13 +18,13 @@ const MyEventsPage = () => {
   }
 
   const form = (
-    <MyEventForm 
+    <CommunityEventForm
       currentEvent={currentEvent}
     />
   )
 
   return (
-    <Page title="Meus Eventos">
+    <Page title="Comunidade">
       <Paper>
         <Table>
           <TableHead>
@@ -46,6 +34,7 @@ const MyEventsPage = () => {
               <TableCell>Descrição</TableCell>
               <TableCell>Inicio</TableCell>
               <TableCell>Fim</TableCell>
+              <TableCell>Usuário</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,13 +55,17 @@ const MyEventsPage = () => {
                 <Typography variant="body1">10/06/2020 20:00h</Typography>
               </TableCell>
               <TableCell>
+                <Typography variant="body1">Claudio</Typography>
+              </TableCell>
+              <TableCell>
                 <Button onClick={()=>handleClickOptions(
                   {
                     name: 'test',
                     description: 'test',
                     location: 'test',
                     start_at: 'test',
-                    end_at: 'test'
+                    end_at: 'test',
+                    user_name: 'Claudio'
                   }
                 )} variant='contained'>Opções</Button>
               </TableCell>
@@ -87,6 +80,6 @@ const MyEventsPage = () => {
       />
     </Page>
   );
-};
+}
 
-export default MyEventsPage;
+export default CommunityPage

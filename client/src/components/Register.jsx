@@ -14,7 +14,7 @@ const Register = () => {
         }}
         elevation={11}
         >
-          <Avatar>
+          <Avatar sx={{backgroundColor:  '#5A4FCF'}}>
             <AppRegistrationIcon />
           </Avatar>
           <Typography variant="h5">Registro</Typography>
