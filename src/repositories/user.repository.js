@@ -19,7 +19,9 @@ export default class UserRepository extends Repository{
             updated_at
         ];
     
-        const createdUser = await this.query(query, params);
+        const result = await this.query(query, params);
+        const createdUser = result[0];
+        
         return createdUser;
       }
 
