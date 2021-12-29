@@ -7,7 +7,7 @@ const PrivateRoute = ({component}) => {
 
     const alunoSignin = useSelector((state) => state.userSignin)
     const { userInfo } = alunoSignin
-    console.log(userInfo)
+    
     return (
         <>
        {

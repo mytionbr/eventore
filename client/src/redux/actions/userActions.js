@@ -1,4 +1,4 @@
-import { USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS } from "../constants/userConstantes";
+import { USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from "../constants/userConstantes";
 import api from '../../api';
 
 export const signin = ({user_email, user_password}) => async (dispatch) => {
@@ -28,3 +28,10 @@ export const signin = ({user_email, user_password}) => async (dispatch) => {
       });
     }
   }; 
+
+
+  export const signout = () => (dispatch) => {
+    localStorage.removeItem("userInfo");
+    dispatch({ type: USER_SIGNOUT });
+    document.location.href = "/";
+  };
