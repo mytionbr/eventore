@@ -48,6 +48,12 @@ axios.post(`/api/attendees`, event, {
   headers: { Authorization: `Bearer ${userInfo?.token}` },
 });
 
+const unregisterEvent = ({event, userInfo}) =>
+  axios.delete(`/api/attendees`, {
+    headers: { Authorization: `Bearer ${userInfo?.token}` },
+    data: event
+  });
+
 const api = {
     signinUser,
     registerUser,
@@ -58,7 +64,8 @@ const api = {
     createEvent,
     updateEvent,
     removeEvent,
-    registerEvent
+    registerEvent,
+    unregisterEvent
 }
 
 export default api

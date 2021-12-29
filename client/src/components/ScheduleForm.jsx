@@ -1,17 +1,40 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { unregisterEvent } from '../redux/actions/userActions';
+import { USER_UNREGISTER_EVENT_RESET } from '../redux/constants/userConstantes';
+import LoadingBox from './LoadingBox';
+import MessageBox from './MessageBox';
 
 const ScheduleForm = ({currentEvent}) => {
-    const [name,setName] = React.useState(currentEvent.name);
+    const [title,setName] = React.useState(currentEvent.title);
     const [description,setDescription] = React.useState(currentEvent.description);
     const [location,setLocation] = React.useState(currentEvent.location);
     const [start,setStart] = React.useState(currentEvent.start_at);
     const [end,setEnd] = React.useState(currentEvent.end_at);
     const [userName,setUserName] = React.useState(currentEvent.user_name);
 
-    const handleUnregister = () => {
-        console.log('opa')
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const eventUnregister = useSelector((state) => state.eventUnregister);
+    const { data: success, loading, error } = eventUnregister;
+
+
+    const handleUnregister = (e) => {
+        e.preventDefault();
+        dispatch(unregisterEvent({
+          event_id: currentEvent.event_id
+        }))
     }
+
+    React.useEffect(() => {
+        if (success) {
+          navigate('/app');
+          dispatch({type:USER_UNREGISTER_EVENT_RESET})
+        }
+      }, [success])
 
     return (
         <Box
@@ -28,12 +51,12 @@ const ScheduleForm = ({currentEvent}) => {
         >
             <Typography variant="h6">Evento</Typography>
             <TextField
-                name="name"
+                name="title"
                 variant="outlined"
                 label="Nome"
                 color="primary"
                 fullWidth
-                value={name}
+                value={title}
                 disabled
             />
             <TextField
@@ -96,6 +119,8 @@ const ScheduleForm = ({currentEvent}) => {
             >
             Cancelar
           </Button>
+          {loading && <LoadingBox />}
+        {error && <MessageBox type="error">{error}</MessageBox>}
         </Box>
     )
 }

@@ -29,6 +29,10 @@ import {
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
+  USER_UNREGISTER_EVENT_FAIL,
+  USER_UNREGISTER_EVENT_REQUEST,
+  USER_UNREGISTER_EVENT_RESET,
+  USER_UNREGISTER_EVENT_SUCCESS,
   USER_UPDATE_EVENT_FAIL,
   USER_UPDATE_EVENT_REQUEST,
   USER_UPDATE_EVENT_RESET,
@@ -191,6 +195,25 @@ export const userProfileReducer = (
       case USER_REGISTER_EVENT_FAIL:
         return { loading: false, error: action.payload };
     case USER_REGISTER_EVENT_RESET:
+        return {};
+      default:
+        return state;
+    }
+  };
+
+
+  export const eventUnregisterReducer = (
+    state = {},
+    action
+  ) => {
+    switch (action.type) {
+      case USER_UNREGISTER_EVENT_REQUEST:
+        return { loading: true };
+      case USER_UNREGISTER_EVENT_SUCCESS:
+        return { loading: false, data: action.payload };
+      case USER_UNREGISTER_EVENT_FAIL:
+        return { loading: false, error: action.payload };
+    case USER_UNREGISTER_EVENT_RESET:
         return {};
       default:
         return state;

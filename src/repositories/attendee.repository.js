@@ -32,9 +32,10 @@ export default class AttendeeRepository extends Repository {
     }
 
     async unregister(receivedData){
-        const query = `DELETE FROM ATTENDEE_TABLE WHERE attendee_id = $1 RETURNING *; `
+        const query = `DELETE FROM ATTENDEE_TABLE WHERE user_id = $1 AND event_id = $2  RETURNING *; `
         const params = [
-            receivedData.attendee_id
+            receivedData.user_id,
+            receivedData.event_id,
         ]
 
         const result = await this.query(query,params);
