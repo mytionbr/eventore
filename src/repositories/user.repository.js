@@ -9,7 +9,7 @@ export default class UserRepository extends Repository{
         const updated_at = created_at;
     
         const query = `INSERT INTO USER_TABLE (name, email,password,created_at,updated_at) 
-                VALUES ($1,$2,$3,$4,$5) RETURNING name, email, user_idRETURNING *;`;
+                VALUES ($1,$2,$3,$4,$5) RETURNING name, email, user_id;`;
     
         const params = [
             receivedUser.name,

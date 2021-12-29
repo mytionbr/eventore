@@ -2,6 +2,7 @@ import UserService from '../services/user.service.js';
 
 export const save = async (req, res) => {
   try {
+
     const { name, email, password } = req.body;
 
     const userService = new UserService();
