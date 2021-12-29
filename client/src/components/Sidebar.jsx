@@ -13,7 +13,7 @@ const ITEMS = [
     },
     {
         title: 'Agenda',
-        path: '/app/scheduled'
+        path: '/app/schedule'
     }
 ]
 

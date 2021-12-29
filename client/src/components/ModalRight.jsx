@@ -15,6 +15,7 @@ const ModalRight = ({handleOpenModal,openModal, form,}) => {
                     width: '400px',
                     boxSizing: 'border-box',
                     p: 1,
+                    overflow: 'auto',
                 }        
             }}
         >

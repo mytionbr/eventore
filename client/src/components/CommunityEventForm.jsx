@@ -19,6 +19,8 @@ const CommunityEventForm = ({currentEvent}) => {
                 display: 'flex',
                 flexWrap:'wrap',
                 justifyContent:'center',
+                overflow: 'auto',
+                height: "100%",
                 '& > *':{
                   my: 1
                  }
@@ -32,6 +34,7 @@ const CommunityEventForm = ({currentEvent}) => {
                 color="primary"
                 fullWidth
                 disabled
+                value={name}
             />
             <TextField
                 name="description"

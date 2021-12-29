@@ -1,43 +1,15 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material';
 import React from 'react'
 
-const MyEventForm = ({currentEvent}) => {
+const ScheduleForm = ({currentEvent}) => {
     const [name,setName] = React.useState(currentEvent.name);
     const [description,setDescription] = React.useState(currentEvent.description);
     const [location,setLocation] = React.useState(currentEvent.location);
     const [start,setStart] = React.useState(currentEvent.start_at);
     const [end,setEnd] = React.useState(currentEvent.end_at);
+    const [userName,setUserName] = React.useState(currentEvent.user_name);
 
-    const handleChangeName = (e) => {
-        const { value } = e.target;
-        setName(value);
-    }    
-
-    const handleChangeDescription = (e) => {
-        const { value } = e.target;
-        setDescription(value);
-    }
-    
-    const handleChangeLocation = (e) => {
-        const { value } = e.target;
-        setLocation(value);
-    }
-    
-    const handleChangeStart = (e) => {
-        const { value } = e.target;
-        setStart(value);
-    } 
-
-    const handleChangeEnd = (e) => {
-        const { value } = e.target;
-        setEnd(value);
-    } 
-
-    const handleUpdate = ()=>{
-        console.log('opa')
-    }
-
-    const handleRemove = ()=>{
+    const handleUnregister = () => {
         console.log('opa')
     }
 
@@ -61,8 +33,8 @@ const MyEventForm = ({currentEvent}) => {
                 label="Nome"
                 color="primary"
                 fullWidth
-                onChange={handleChangeName}
                 value={name}
+                disabled
             />
             <TextField
                 name="description"
@@ -70,7 +42,7 @@ const MyEventForm = ({currentEvent}) => {
                 label="Descrição"
                 color="primary"
                 fullWidth
-                onChange={handleChangeDescription}
+                disabled
                 rows={3}
                 multiline
                 value={description}
@@ -81,7 +53,7 @@ const MyEventForm = ({currentEvent}) => {
                 label="Local"
                 color="primary"
                 fullWidth
-                onChange={handleChangeLocation}
+                disabled
                 value={location}
             />
             <TextField
@@ -90,7 +62,7 @@ const MyEventForm = ({currentEvent}) => {
                 label="Começo em"
                 color="primary"
                 fullWidth
-                onChange={handleChangeStart}
+                disabled
                 value={start}
             />
             <TextField
@@ -99,33 +71,33 @@ const MyEventForm = ({currentEvent}) => {
                 label="Termina em"
                 color="primary"
                 fullWidth
-                onChange={handleChangeEnd}
+                disabled
                 value={end}
+            />
+            <TextField
+                name="user_name"
+                variant="outlined"
+                label="Usuário"
+                color="primary"
+                fullWidth
+                value={userName}
+                disabled 
             />
              <Button
                 type="submit"
                 variant="contained"
                 color="primary"
                 size="large"
-                onClick={handleUpdate}
+                onClick={handleUnregister}
                 fullWidth
                 sx={{
                     mb: 1
                 }}
             >
-            Alterar
-          </Button>
-          <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={handleRemove}
-                fullWidth
-            >
-            Excluir
+            Cancelar
           </Button>
         </Box>
     )
 }
 
-export default MyEventForm
+export default ScheduleForm
