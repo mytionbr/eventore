@@ -4,7 +4,7 @@ import ProfileForm from '../components/ProfileForm'
 
 const ProfilePage = () => {
     return (
-        <Page title="Criar evento">
+        <Page title="Perfil">
         <ProfileForm />   
     </Page>
     )

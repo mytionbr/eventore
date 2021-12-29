@@ -81,7 +81,7 @@ export const findByName = async (req,res) => {
 
 export const findById = async (req,res) => {
   try {
-
+    
     const user_id = req.params.user_id;
 
     const userService = new UserService();

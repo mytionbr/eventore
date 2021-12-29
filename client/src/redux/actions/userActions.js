@@ -1,4 +1,4 @@
-import { USER_COMMUNITY_EVENTS_FAIL, USER_COMMUNITY_EVENTS_REQUEST, USER_COMMUNITY_EVENTS_SUCCESS, USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SCHEDULE_EVENTS_FAIL, USER_SCHEDULE_EVENTS_REQUEST, USER_SCHEDULE_EVENTS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from "../constants/userConstantes";
+import { USER_COMMUNITY_EVENTS_FAIL, USER_COMMUNITY_EVENTS_REQUEST, USER_COMMUNITY_EVENTS_SUCCESS, USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SCHEDULE_EVENTS_FAIL, USER_SCHEDULE_EVENTS_REQUEST, USER_SCHEDULE_EVENTS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from "../constants/userConstantes";
 import api from '../../api';
 
 export const signin = ({user_email, user_password}) => async (dispatch) => {
@@ -94,6 +94,28 @@ export const signin = ({user_email, user_password}) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: USER_SCHEDULE_EVENTS_FAIL,
+        payload: error.response.data.message || error.message,
+      });
+    }
+  };
+
+  export const findUserProfile = () => async (dispatch,getState) => {
+    const {
+      userSignin: { userInfo },
+    } = getState();
+
+    dispatch({
+      type: USER_PROFILE_REQUEST,
+    });
+    try {
+
+      const { data } = await api.findUserProfile({userInfo});
+  
+      dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
+    } catch (error) {
+      console.log(error)
+      dispatch({
+        type: USER_PROFILE_FAIL,
         payload: error.response.data.message || error.message,
       });
     }
