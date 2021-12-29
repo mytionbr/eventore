@@ -41,7 +41,6 @@ const Register = () => {
                 label="Email"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 color='primary'
                 type="email"
               />
@@ -53,7 +52,6 @@ const Register = () => {
                 id="password"
                 label="Senha"
                 name="password"
-                autoFocus
                 color='primary'
                 type="password"
               />

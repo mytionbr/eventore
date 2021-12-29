@@ -12,14 +12,13 @@ const AppBarStyled = styled(Toolbar)(({ theme }) => ({
 }));
 
 
-const Navbar = () => {
+const Navbar = ({onOpenSidebar}) => {
     return (
         <Box sx={{flexGrow:1}}>
             <AppBarStyled>
-           
-            <Typography component={Link} to="/" sx={{fontSize: '2rem',color: '#fff',textDecoration: 'none'}}>
+            <Typography component={Link} to="/" sx={{fontSize: '1.5rem',color: '#fff',textDecoration: 'none'}}>
                   EVENTORE
-            </Typography>           
+            </Typography>         
                 <Box sx={{display: 'flex', alignItems: 'center' }}>
                   <Button component={Link} to="/register" sx={{marginRight:'10px'}} variant="contained" color="primary">Registre-se</Button>
                   <Button component={Link} to="/login" variant="contained" color="primary">Login</Button>

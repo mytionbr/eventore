@@ -48,7 +48,6 @@ const Login = () => {
             id="password"
             label="Senha"
             name="password"
-            autoFocus
             color='primary'
             type="password"
           />
