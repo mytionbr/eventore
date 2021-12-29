@@ -22,8 +22,6 @@ const CommunityPage = () => {
     setOpenModal(!openModal);
   };
 
-
-
   const handleClickOptions = (event)=>{
     setCurrentEvent(event)
     handleOpenModal();

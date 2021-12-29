@@ -17,13 +17,19 @@ axios.get(`/api/events`,  {
   headers: { Authorization: `Bearer ${userInfo?.token}` },
 });
 
+const findScheduleEvents = ({userInfo}) =>
+axios.get(`/api/users/${userInfo?.user_id}/events/registered`,  {
+  headers: { Authorization: `Bearer ${userInfo?.token}` },
+});
+
 
 
 const api = {
     signinUser,
     registerUser,
     findMyEvents,
-    findCommunityEvents
+    findCommunityEvents,
+    findScheduleEvents
 }
 
 export default api
