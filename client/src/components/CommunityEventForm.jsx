@@ -2,12 +2,12 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
 
 const CommunityEventForm = ({currentEvent}) => {
-    const [name,setName] = React.useState(currentEvent.name);
+    const [title,setTitle] = React.useState(currentEvent.title);
     const [description,setDescription] = React.useState(currentEvent.description);
     const [location,setLocation] = React.useState(currentEvent.location);
     const [start,setStart] = React.useState(currentEvent.start_at);
     const [end,setEnd] = React.useState(currentEvent.end_at);
-    const [userName,setUserName] = React.useState(currentEvent.user_name);
+    const [userName,setUserName] = React.useState(currentEvent.user.name);
 
     const handleRegister = () => {
         console.log('opa')
@@ -28,13 +28,13 @@ const CommunityEventForm = ({currentEvent}) => {
         >
             <Typography variant="h6">Evento</Typography>
             <TextField
-                name="name"
+                name="title"
                 variant="outlined"
                 label="Nome"
                 color="primary"
                 fullWidth
                 disabled
-                value={name}
+                value={title}
             />
             <TextField
                 name="description"

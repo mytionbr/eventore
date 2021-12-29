@@ -1,4 +1,4 @@
-import { USER_COMMUNITY_EVENTS_FAIL, USER_COMMUNITY_EVENTS_REQUEST, USER_COMMUNITY_EVENTS_SUCCESS, USER_CREATE_EVENT_FAIL, USER_CREATE_EVENT_REQUEST, USER_CREATE_EVENT_SUCCESS, USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SCHEDULE_EVENTS_FAIL, USER_SCHEDULE_EVENTS_REQUEST, USER_SCHEDULE_EVENTS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from "../constants/userConstantes";
+import { USER_COMMUNITY_EVENTS_FAIL, USER_COMMUNITY_EVENTS_REQUEST, USER_COMMUNITY_EVENTS_SUCCESS, USER_CREATE_EVENT_FAIL, USER_CREATE_EVENT_REQUEST, USER_CREATE_EVENT_SUCCESS, USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SCHEDULE_EVENTS_FAIL, USER_SCHEDULE_EVENTS_REQUEST, USER_SCHEDULE_EVENTS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_UPDATE_EVENT_FAIL, USER_UPDATE_EVENT_REQUEST, USER_UPDATE_EVENT_SUCCESS } from "../constants/userConstantes";
 import api from '../../api';
 
 export const signin = ({user_email, user_password}) => async (dispatch) => {
@@ -49,8 +49,6 @@ export const signin = ({user_email, user_password}) => async (dispatch) => {
         user_id,
         userInfo
       });
-
-      console.log(data)
   
       dispatch({ type: USER_MY_EVENTS_SUCCESS, payload: data });
     } catch (error) {
@@ -138,6 +136,27 @@ export const signin = ({user_email, user_password}) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: USER_CREATE_EVENT_FAIL,
+        payload: error.response.data.message || error.message,
+      });
+    }
+  };
+
+  export const updateEvent = (event) => async (dispatch,getState) => {
+    const {
+      userSignin: { userInfo },
+    } = getState();
+
+    dispatch({
+      type: USER_UPDATE_EVENT_REQUEST,
+    });
+    try {
+      event.user_id = userInfo.user_id
+      const { data } = await api.updateEvent({userInfo,event});
+  
+      dispatch({ type: USER_UPDATE_EVENT_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_EVENT_FAIL,
         payload: error.response.data.message || error.message,
       });
     }

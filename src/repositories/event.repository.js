@@ -80,7 +80,7 @@ export default class EventRepository extends Repository {
       receivedEvent.description,
       receivedEvent.start_at,
       receivedEvent.end_at,
-      receivedEvent.user_id
+      receivedEvent.event_id
     ];
 
     const result = await this.query(query,params);

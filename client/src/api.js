@@ -32,6 +32,11 @@ const createEvent = ({event, userInfo}) =>
     headers: { Authorization: `Bearer ${userInfo?.token}` },
   });
 
+const updateEvent = ({event, userInfo}) =>
+  axios.put(`/api/events`, event, {
+    headers: { Authorization: `Bearer ${userInfo?.token}` },
+  });
+
 
 const api = {
     signinUser,
@@ -40,7 +45,8 @@ const api = {
     findCommunityEvents,
     findScheduleEvents,
     findUserProfile,
-    createEvent
+    createEvent,
+    updateEvent
 }
 
 export default api
