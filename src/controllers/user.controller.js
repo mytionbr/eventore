@@ -53,7 +53,7 @@ export const update = async (req,res) => {
     const userService = new UserService();
 
     const updatedUser = await userService.update(receivedUser);
-
+    
     const token = generateToken({
       user_id: updatedUser.user_id,
       name: updatedUser.name,
@@ -66,6 +66,7 @@ export const update = async (req,res) => {
       name: updatedUser.name,
       token: token
   }
+  
     res.status(200).json(response)
 
   } catch (err){

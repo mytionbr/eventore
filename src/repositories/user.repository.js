@@ -45,7 +45,8 @@ export default class UserRepository extends Repository{
           params = [receivedUser.name, receivedUser.email, updated_at,receivedUser.user_id];
         }
 
-        const updatedUser = await this.query(query, params);
+        const result = await this.query(query, params);
+        const updatedUser = result[0]
         return updatedUser;
       }
 
