@@ -54,6 +54,7 @@ export const signin = async (req,res)=>{
 
 export const isAuth = async (req, res, next) =>{
     const authorization = req.headers.authorization;
+
     try {
         if(authorization){
             const token = authorization.slice(7, authorization.length)

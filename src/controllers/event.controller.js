@@ -116,7 +116,7 @@ export const update = async (req, res) => {
 
 export const remove = async (req, res) => {
   try {
-    const event_id = req.params["event_id"];
+    const { event_id } = req.body;
     const eventService = new EventService();
 
     const removedEvent = await eventService.remove(event_id);

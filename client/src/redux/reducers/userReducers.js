@@ -15,6 +15,10 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_REMOVE_EVENT_FAIL,
+  USER_REMOVE_EVENT_REQUEST,
+  USER_REMOVE_EVENT_RESET,
+  USER_REMOVE_EVENT_SUCCESS,
   USER_SCHEDULE_EVENTS_FAIL,
   USER_SCHEDULE_EVENTS_REQUEST,
   USER_SCHEDULE_EVENTS_SUCCESS,
@@ -147,6 +151,24 @@ export const userProfileReducer = (
       case USER_UPDATE_EVENT_FAIL:
         return { loading: false, error: action.payload };
     case USER_UPDATE_EVENT_RESET:
+        return {};
+      default:
+        return state;
+    }
+  };
+
+  export const eventRemoveReducer = (
+    state = {},
+    action
+  ) => {
+    switch (action.type) {
+      case USER_REMOVE_EVENT_REQUEST:
+        return { loading: true };
+      case USER_REMOVE_EVENT_SUCCESS:
+        return { loading: false, data: action.payload };
+      case USER_REMOVE_EVENT_FAIL:
+        return { loading: false, error: action.payload };
+    case USER_REMOVE_EVENT_RESET:
         return {};
       default:
         return state;

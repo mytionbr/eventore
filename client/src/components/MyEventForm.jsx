@@ -3,8 +3,8 @@ import moment from 'moment';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { updateEvent } from '../redux/actions/userActions';
-import { USER_UPDATE_EVENT_RESET } from '../redux/constants/userConstantes';
+import { removeEvent, updateEvent } from '../redux/actions/userActions';
+import { USER_REMOVE_EVENT_RESET, USER_UPDATE_EVENT_RESET } from '../redux/constants/userConstantes';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
@@ -27,6 +27,13 @@ const MyEventForm = ({ currentEvent }) => {
     loading: loadingUpdate,
     error: errorUpdate,
   } = eventUpdate;
+
+  const eventRemove = useSelector((state) => state.eventRemove);
+  const {
+    data: successRemove,
+    loading: loadingRemove,
+    error: errorRemove,
+  } = eventRemove;
 
   const handleChangeTitle = (e) => {
     const { value } = e.target;
@@ -67,8 +74,13 @@ const MyEventForm = ({ currentEvent }) => {
     );
   };
 
-  const handleRemove = () => {
-    console.log('opa');
+  const handleRemoveSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      removeEvent({
+        event_id: currentEvent.event_id,
+      })
+    );
   };
 
   React.useEffect(() => {
@@ -77,6 +89,13 @@ const MyEventForm = ({ currentEvent }) => {
       navigate('/app')
     }
   }, [dispatch, successUpdate]);
+
+  React.useEffect(() => {
+    if (successRemove) {
+      dispatch({ type: USER_REMOVE_EVENT_RESET });
+      navigate('/app')
+    }
+  }, [dispatch, successRemove]);
 
   return (
     <Box
@@ -156,13 +175,16 @@ const MyEventForm = ({ currentEvent }) => {
         variant="contained"
         color="primary"
         size="large"
-        onClick={handleRemove}
+        onClick={handleRemoveSubmit}
         fullWidth
       >
         Excluir
       </Button>
       {loadingUpdate && <LoadingBox />}
       {errorUpdate && <MessageBox type="error">{errorUpdate}</MessageBox>}
+      {loadingRemove && <LoadingBox />}
+      {errorRemove && <MessageBox type="error">{errorRemove}</MessageBox>}
+    
     </Box>
   );
 };

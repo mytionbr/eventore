@@ -37,6 +37,12 @@ const updateEvent = ({event, userInfo}) =>
     headers: { Authorization: `Bearer ${userInfo?.token}` },
   });
 
+const removeEvent = ({event, userInfo}) =>
+  axios.delete(`/api/events`, {
+    headers: { Authorization: `Bearer ${userInfo?.token}` },
+    data: event
+  });
+
 
 const api = {
     signinUser,
@@ -46,7 +52,8 @@ const api = {
     findScheduleEvents,
     findUserProfile,
     createEvent,
-    updateEvent
+    updateEvent,
+    removeEvent
 }
 
 export default api

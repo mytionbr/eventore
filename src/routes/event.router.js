@@ -11,11 +11,11 @@ router.route('/')
     .get( isAuth,list )
     .post(isAuth,hasAuthorization, save )
     .put( isAuth,hasAuthorization,update )
+    .delete( isAuth,hasAuthorization,remove )
 
 router.route('/:event_id')
     .get(isAuth,findById)
-    .delete( isAuth,hasAuthorization,remove )
-
+    
 
 
 export default router
