@@ -32,8 +32,8 @@ const NavItem  = ({item, active})=>{
             component={NavLink}
             to={path}
             sx={{
-                color: isActiveRoot ? 'text.primary' : 'black',
-                fontWeight: isActiveRoot ? '700' : '500'
+                color: isActiveRoot ? '#5A4FCF' : 'black',
+                fontWeight: isActiveRoot ? '700' : '500',
         }}
         >
             <ListItemText disableTypography primary={item.title} />
