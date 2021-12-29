@@ -7,10 +7,17 @@ const signinUser = (user_email, user_password) =>
 const registerUser = ({email,password,name}) =>
   axios.post("/api/users", {email,password,name})
 
+const findMyEvents = ({user_id,userInfo}) =>
+  axios.get(`/api/users/${user_id}/events/own`,  {
+    headers: { Authorization: `Bearer ${userInfo?.token}` },
+  });
+
+
 
 const api = {
     signinUser,
-    registerUser
+    registerUser,
+    findMyEvents
 }
 
 export default api

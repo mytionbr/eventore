@@ -1,4 +1,4 @@
-import { USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS } from "../constants/userConstantes"
+import { USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS } from "../constants/userConstantes"
 
 
 export const userSigninReducer = (
@@ -32,3 +32,19 @@ export const userRegisterReducer = (
             return state
     }
 }
+
+export const myEventsReducer = (
+    state = { loading: true, cursos: [] },
+    action
+  ) => {
+    switch (action.type) {
+      case USER_MY_EVENTS_REQUEST:
+        return { loading: true };
+      case USER_MY_EVENTS_SUCCESS:
+        return { loading: false, data: action.payload };
+      case USER_MY_EVENTS_FAIL:
+        return { loading: false, error: action.payload };
+      default:
+        return state;
+    }
+  };

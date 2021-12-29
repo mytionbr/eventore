@@ -1,4 +1,4 @@
-import { USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from "../constants/userConstantes";
+import { USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from "../constants/userConstantes";
 import api from '../../api';
 
 export const signin = ({user_email, user_password}) => async (dispatch) => {
@@ -34,4 +34,27 @@ export const signin = ({user_email, user_password}) => async (dispatch) => {
     localStorage.removeItem("userInfo");
     dispatch({ type: USER_SIGNOUT });
     document.location.href = "/";
+  };
+
+  export const findEventsByUser = ({user_id}) => async (dispatch,getState) => {
+    const {
+      userSignin: { userInfo },
+    } = getState();
+
+    dispatch({
+      type: USER_MY_EVENTS_REQUEST,
+    });
+    try {
+      const { data } = await api.findMyEvents({
+        user_id,
+        userInfo
+      });
+  
+      dispatch({ type: USER_MY_EVENTS_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: USER_MY_EVENTS_FAIL,
+        payload: error.response.data.message || error.message,
+      });
+    }
   };
