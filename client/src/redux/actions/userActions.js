@@ -1,4 +1,4 @@
-import { USER_COMMUNITY_EVENTS_FAIL, USER_COMMUNITY_EVENTS_REQUEST, USER_COMMUNITY_EVENTS_SUCCESS, USER_CREATE_EVENT_FAIL, USER_CREATE_EVENT_REQUEST, USER_CREATE_EVENT_SUCCESS, USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_EVENT_FAIL, USER_REGISTER_EVENT_REQUEST, USER_REGISTER_EVENT_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REMOVE_EVENT_FAIL, USER_REMOVE_EVENT_REQUEST, USER_REMOVE_EVENT_SUCCESS, USER_SCHEDULE_EVENTS_FAIL, USER_SCHEDULE_EVENTS_REQUEST, USER_SCHEDULE_EVENTS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_UNREGISTER_EVENT_FAIL, USER_UNREGISTER_EVENT_REQUEST, USER_UNREGISTER_EVENT_SUCCESS, USER_UPDATE_EVENT_FAIL, USER_UPDATE_EVENT_REQUEST, USER_UPDATE_EVENT_SUCCESS } from "../constants/userConstantes";
+import { USER_COMMUNITY_EVENTS_FAIL, USER_COMMUNITY_EVENTS_REQUEST, USER_COMMUNITY_EVENTS_SUCCESS, USER_CREATE_EVENT_FAIL, USER_CREATE_EVENT_REQUEST, USER_CREATE_EVENT_SUCCESS, USER_MY_EVENTS_FAIL, USER_MY_EVENTS_REQUEST, USER_MY_EVENTS_SUCCESS, USER_PROFILE_FAIL, USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS, USER_REGISTER_EVENT_FAIL, USER_REGISTER_EVENT_REQUEST, USER_REGISTER_EVENT_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REMOVE_EVENT_FAIL, USER_REMOVE_EVENT_REQUEST, USER_REMOVE_EVENT_SUCCESS, USER_SCHEDULE_EVENTS_FAIL, USER_SCHEDULE_EVENTS_REQUEST, USER_SCHEDULE_EVENTS_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_UNREGISTER_EVENT_FAIL, USER_UNREGISTER_EVENT_REQUEST, USER_UNREGISTER_EVENT_SUCCESS, USER_UPDATE_EVENT_FAIL, USER_UPDATE_EVENT_REQUEST, USER_UPDATE_EVENT_SUCCESS, USER_UPDATE_FAIL, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "../constants/userConstantes";
 import api from '../../api';
 
 export const signin = ({user_email, user_password}) => async (dispatch) => {
@@ -16,7 +16,7 @@ export const signin = ({user_email, user_password}) => async (dispatch) => {
   }; 
 
   export const register = ({email, name, password}) => async (dispatch) => {
-    dispatch({ type: USER_REGISTER_REQUEST, payload: { email, name, password } });
+     dispatch({ type: USER_REGISTER_REQUEST, payload: { email, name, password } });
     try {
       const { data } = await api.registerUser({email, password, name});
       dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
@@ -24,6 +24,25 @@ export const signin = ({user_email, user_password}) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
+        payload: error.response.data.message || error.message,
+      });
+    }
+  }; 
+
+  export const updateUser = (user) => async (dispatch,getState) => {
+    const {
+      userSignin: { userInfo },
+    } = getState();
+
+    dispatch({ type: USER_UPDATE_REQUEST, payload: { user } });
+    
+    try {
+      const { data } = await api.updateUser({user,userInfo});
+      dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_FAIL,
         payload: error.response.data.message || error.message,
       });
     }

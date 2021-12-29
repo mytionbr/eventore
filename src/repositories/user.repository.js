@@ -34,9 +34,10 @@ export default class UserRepository extends Repository{
       }
 
       async update(receivedUser){
+        
         let query, params;
         const updated_at =  moment().format('YYYY-MM-DD h:mm:ss');
-        if(hasPasswordChanged(receivedUser.password)){
+        if(await hasPasswordChanged(receivedUser.password)){
           query = `UPDATE USER_TABLE SET name = $1, email = $2, password = $3, updated_at = $4 WHERE user_id = $5 RETURNING user_id, name, email`;
           params = [receivedUser.name, receivedUser.email, receivedUser.password, updated_at, receivedUser.user_id ];
         } else {

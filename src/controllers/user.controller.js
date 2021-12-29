@@ -1,4 +1,5 @@
 import UserService from '../services/user.service.js';
+import generateToken from '../util/auth/generateToken.js';
 
 export const save = async (req, res) => {
   try {
@@ -40,19 +41,32 @@ export const list = async (req,res) => {
 
 export const update = async (req,res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, user_id } = req.body;
 
     const receivedUser = {
       name,
       email,
       password,
+      user_id
     }
 
     const userService = new UserService();
 
     const updatedUser = await userService.update(receivedUser);
 
-    res.status(200).json(updatedUser)
+    const token = generateToken({
+      user_id: updatedUser.user_id,
+      name: updatedUser.name,
+      email: updatedUser.email
+  });
+
+  const response = {
+      user_id: updatedUser.user_id,
+      email: updatedUser.email,
+      name: updatedUser.name,
+      token: token
+  }
+    res.status(200).json(response)
 
   } catch (err){
     res.status(400).json({

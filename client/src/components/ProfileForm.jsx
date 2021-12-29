@@ -1,7 +1,9 @@
 import { Box, Button, Paper, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { findUserProfile } from '../redux/actions/userActions';
+import { useNavigate } from 'react-router';
+import { findUserProfile, updateUser } from '../redux/actions/userActions';
+import { USER_UPDATE_RESET } from '../redux/constants/userConstantes';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
@@ -13,6 +15,14 @@ const ProfileForm = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile);
   const { loading, error, data: user } = userProfile;
+
+  const redirect = "/app";
+  const navigate = useNavigate();
+
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const { data: success, loading: loadingUpdate, error: errorUpdate } = userUpdate;
+
+  
 
   const handleChangeName = (e) => {
     const { value } = e.target;
@@ -29,10 +39,6 @@ const ProfileForm = () => {
     setPassword(value);
   };
 
-  const handleSave = () => {
-    console.log('opa');
-  };
-
   React.useEffect(()=>{
     dispatch(findUserProfile());
   },[dispatch])
@@ -43,6 +49,25 @@ const ProfileForm = () => {
       setEmail(user.email)
     }
   },[user])
+
+  const handleUpdateSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      updateUser({
+        user_id: user.user_id,
+        name: name,
+        email: email,
+        password: password
+      })
+    );
+  };
+
+  React.useEffect(() => {
+    if (success) {
+      navigate(redirect);
+      dispatch({type:USER_UPDATE_RESET})
+    }
+  }, [success])
 
   return (
     <>
@@ -105,7 +130,7 @@ const ProfileForm = () => {
               <Button
                 type="submit"
                 fullWidth
-                onClick={handleSave}
+                onClick={handleUpdateSubmit}
                 variant="contained"
                 color="primary"
               >
@@ -113,6 +138,8 @@ const ProfileForm = () => {
               </Button>
             </Box>
           </form>
+          {loadingUpdate && <LoadingBox />}
+          {errorUpdate && <MessageBox type="error">{errorUpdate}</MessageBox>}
         </Paper>
       )}
     </>

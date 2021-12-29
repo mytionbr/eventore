@@ -54,6 +54,11 @@ const unregisterEvent = ({event, userInfo}) =>
     data: event
   });
 
+  const updateUser =  ({user, userInfo}) =>
+  axios.put(`/api/users`, user, {
+    headers: { Authorization: `Bearer ${userInfo?.token}` },
+  });
+
 const api = {
     signinUser,
     registerUser,
@@ -65,7 +70,8 @@ const api = {
     updateEvent,
     removeEvent,
     registerEvent,
-    unregisterEvent
+    unregisterEvent,
+    updateUser
 }
 
 export default api
