@@ -66,13 +66,14 @@ export default class UserRepository extends Repository{
       }
 
       async findMyOwnEvents(user_id){
-        const query = `SELECT EVENT_TABLE.event_id, EVENT_TABLE.title FROM EVENT_TABLE 
+        const query = `SELECT EVENT_TABLE.event_id,EVENT_TABLE.location, EVENT_TABLE.title, EVENT_TABLE.description, EVENT_TABLE.start_at, EVENT_TABLE.end_at FROM EVENT_TABLE 
             INNER JOIN USER_TABLE ON EVENT_TABLE.user_id = USER_TABLE.user_id
             WHERE EVENT_TABLE.user_id = $1`;
 
         const params = [user_id];
 
         const events = await this.query(query,params);
+    
         return events;
     }
 

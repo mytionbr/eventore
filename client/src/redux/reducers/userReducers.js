@@ -2,6 +2,10 @@ import {
   USER_COMMUNITY_EVENTS_FAIL,
   USER_COMMUNITY_EVENTS_REQUEST,
   USER_COMMUNITY_EVENTS_SUCCESS,
+  USER_CREATE_EVENT_FAIL,
+  USER_CREATE_EVENT_REQUEST,
+  USER_CREATE_EVENT_RESET,
+  USER_CREATE_EVENT_SUCCESS,
   USER_MY_EVENTS_FAIL,
   USER_MY_EVENTS_REQUEST,
   USER_MY_EVENTS_SUCCESS,
@@ -46,7 +50,7 @@ export const userRegisterReducer = (state = {}, action) => {
 };
 
 export const myEventsReducer = (
-  state = { loading: true, cursos: [] },
+  state = { loading: true, data: [] },
   action
 ) => {
   switch (action.type) {
@@ -62,7 +66,7 @@ export const myEventsReducer = (
 };
 
 export const communityEventsReducer = (
-  state = { loading: true, cursos: [] },
+  state = { loading: true, data: [] },
   action
 ) => {
   switch (action.type) {
@@ -78,7 +82,7 @@ export const communityEventsReducer = (
 };
 
 export const scheduleEventsReducer = (
-  state = { loading: true, cursos: [] },
+  state = { loading: true, data: [] },
   action
 ) => {
   switch (action.type) {
@@ -94,7 +98,7 @@ export const scheduleEventsReducer = (
 };
 
 export const userProfileReducer = (
-    state = { loading: true, cursos: [] },
+    state = { loading: true },
     action
   ) => {
     switch (action.type) {
@@ -104,6 +108,24 @@ export const userProfileReducer = (
         return { loading: false, data: action.payload };
       case USER_PROFILE_FAIL:
         return { loading: false, error: action.payload };
+      default:
+        return state;
+    }
+  };
+
+  export const eventCreateReducer = (
+    state = {},
+    action
+  ) => {
+    switch (action.type) {
+      case USER_CREATE_EVENT_REQUEST:
+        return { loading: true };
+      case USER_CREATE_EVENT_SUCCESS:
+        return { loading: false, data: action.payload };
+      case USER_CREATE_EVENT_FAIL:
+        return { loading: false, error: action.payload };
+    case USER_CREATE_EVENT_RESET:
+        return {};
       default:
         return state;
     }

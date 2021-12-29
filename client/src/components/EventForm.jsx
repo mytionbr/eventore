@@ -1,12 +1,29 @@
 import { Box, Button, Paper, TextField } from '@mui/material';
+import { extendSxProp } from '@mui/system';
+import moment from 'moment';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { createEvent } from '../redux/actions/userActions';
+import { USER_CREATE_EVENT_RESET } from '../redux/constants/userConstantes';
+import LoadingBox from './LoadingBox';
+import MessageBox from './MessageBox';
 
 const EventForm = () => {
-    const [name,setName] = React.useState('');
+    const [title,setName] = React.useState('');
     const [description,setDescription] = React.useState('');
     const [location,setLocation] = React.useState('');
     const [start,setStart] = React.useState('');
     const [end,setEnd] = React.useState('');
+
+    
+  const eventCreate = useSelector((state) => state.eventCreate);
+  const { data: success, loading, error } = eventCreate;
+
+  const redirect = "/app";
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
     const handleChangeName = (e) => {
         const { value } = e.target;
@@ -33,9 +50,23 @@ const EventForm = () => {
         setEnd(value);
     } 
 
-    const handleSave= ()=>{
-        console.log('opa')
-    }
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      dispatch(createEvent({
+        title: title,
+        description: description,
+        location: location,
+        start_at: moment(start).toISOString(),
+        end_at: moment(end).toISOString()
+      }))
+    };
+  
+    React.useEffect(() => {
+      if (success) {
+        navigate(redirect);
+        dispatch({type:USER_CREATE_EVENT_RESET})
+      }
+    }, [success])
 
 
 
@@ -63,16 +94,16 @@ const EventForm = () => {
           }}
         >
           <TextField
-            name="name"
+            title="title"
             variant="outlined"
             label="Nome"
             color="primary"
             fullWidth
             onChange={handleChangeName}
-            value={name}
+            value={title}
           />
           <TextField
-            name="description"
+            title="description"
             variant="outlined"
             label="Descrição"
             color="primary"
@@ -83,7 +114,7 @@ const EventForm = () => {
             value={description}
           />
           <TextField
-            name="location"
+            title="location"
             variant="outlined"
             label="Local"
             color="primary"
@@ -92,7 +123,7 @@ const EventForm = () => {
             value={location}
           />
           <TextField
-            name="start_at"
+            title="start_at"
             variant="outlined"
             label="Começo em"
             color="primary"
@@ -101,7 +132,7 @@ const EventForm = () => {
             value={start}
           />
           <TextField
-            name="end_at"
+            title="end_at"
             variant="outlined"
             label="Termina em"
             color="primary"
@@ -110,11 +141,13 @@ const EventForm = () => {
             value={end}
           />
 
-          <Button type="submit" fullWidth onClick={handleSave} variant="contained" color="primary">
+          <Button type="submit" fullWidth onClick={handleSubmit} variant="contained" color="primary">
             Salvar
           </Button>
         </Box>
       </form>
+      {loading && <LoadingBox />}
+      {error && <MessageBox type="error">{error}</MessageBox>}
     </Paper>
   );
 };
