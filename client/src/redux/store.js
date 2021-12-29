@@ -1,6 +1,6 @@
 import { createStore,compose,  applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { communityEventsReducer, createEventReducer, eventCreateReducer, eventRemoveReducer, eventUpdateReducer, myEventsReducer, scheduleEventsReducer, userProfileReducer, userRegisterReducer, userSigninReducer } from './reducers/userReducers';
+import { communityEventsReducer, createEventReducer, eventCreateReducer, eventRegisterReducer, eventRemoveReducer, eventUpdateReducer, myEventsReducer, scheduleEventsReducer, userProfileReducer, userRegisterReducer, userSigninReducer } from './reducers/userReducers';
 
 const userInfo = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -21,7 +21,8 @@ const reducer = combineReducers({
   userProfile:userProfileReducer,
   eventCreate:eventCreateReducer,
   eventUpdate:eventUpdateReducer,
-  eventRemove:eventRemoveReducer
+  eventRemove:eventRemoveReducer,
+  eventRegister:eventRegisterReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -43,6 +43,10 @@ const removeEvent = ({event, userInfo}) =>
     data: event
   });
 
+const registerEvent =  ({event, userInfo}) =>
+axios.post(`/api/attendees`, event, {
+  headers: { Authorization: `Bearer ${userInfo?.token}` },
+});
 
 const api = {
     signinUser,
@@ -53,7 +57,8 @@ const api = {
     findUserProfile,
     createEvent,
     updateEvent,
-    removeEvent
+    removeEvent,
+    registerEvent
 }
 
 export default api

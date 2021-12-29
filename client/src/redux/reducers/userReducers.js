@@ -12,6 +12,10 @@ import {
   USER_PROFILE_FAIL,
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
+  USER_REGISTER_EVENT_FAIL,
+  USER_REGISTER_EVENT_REQUEST,
+  USER_REGISTER_EVENT_RESET,
+  USER_REGISTER_EVENT_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -169,6 +173,24 @@ export const userProfileReducer = (
       case USER_REMOVE_EVENT_FAIL:
         return { loading: false, error: action.payload };
     case USER_REMOVE_EVENT_RESET:
+        return {};
+      default:
+        return state;
+    }
+  };
+
+  export const eventRegisterReducer = (
+    state = {},
+    action
+  ) => {
+    switch (action.type) {
+      case USER_REGISTER_EVENT_REQUEST:
+        return { loading: true };
+      case USER_REGISTER_EVENT_SUCCESS:
+        return { loading: false, data: action.payload };
+      case USER_REGISTER_EVENT_FAIL:
+        return { loading: false, error: action.payload };
+    case USER_REGISTER_EVENT_RESET:
         return {};
       default:
         return state;

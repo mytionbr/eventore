@@ -1,5 +1,11 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { registerEvent } from '../redux/actions/userActions';
+import { USER_REGISTER_EVENT_RESET } from '../redux/constants/userConstantes';
+import LoadingBox from './LoadingBox';
+import MessageBox from './MessageBox';
 
 const CommunityEventForm = ({currentEvent}) => {
     const [title,setTitle] = React.useState(currentEvent.title);
@@ -9,9 +15,25 @@ const CommunityEventForm = ({currentEvent}) => {
     const [end,setEnd] = React.useState(currentEvent.end_at);
     const [userName,setUserName] = React.useState(currentEvent.user.name);
 
-    const handleRegister = () => {
-        console.log('opa')
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const eventRegister = useSelector((state) => state.eventRegister);
+    const { data: success, loading, error } = eventRegister;
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        dispatch(registerEvent({
+          event_id: currentEvent.event_id
+        }))
     }
+
+    React.useEffect(() => {
+        if (success) {
+          navigate('/app/schedule');
+          dispatch({type:USER_REGISTER_EVENT_RESET})
+        }
+      }, [success])
 
     return (
         <Box
@@ -96,6 +118,8 @@ const CommunityEventForm = ({currentEvent}) => {
             >
             Registre-se
           </Button>
+          {loading && <LoadingBox />}
+        {error && <MessageBox type="error">{error}</MessageBox>}
         </Box>
     )
 }

@@ -122,7 +122,6 @@ export const findEventsRegistered = async (req,res)=>{
       const userService = new UserService();
 
       const events = await userService.findEventsRegistered(user_id);
-
       res.status(200).json(events);
 
   } catch (err) {

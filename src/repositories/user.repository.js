@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { getNomalizedList } from '../util/event/getNomalizedEventData.js';
 import hasPasswordChanged from '../util/hasPasswordChanged.js';
 import Repository from './repository.js';
 
@@ -71,21 +72,23 @@ export default class UserRepository extends Repository{
             WHERE EVENT_TABLE.user_id = $1`;
 
         const params = [user_id];
-
+        
         const events = await this.query(query,params);
-    
+          
         return events;
     }
 
     async findEventsRegistered(user_id){
-      const query = `SELECT EVENT_TABLE.event_id, EVENT_TABLE.title FROM EVENT_TABLE 
+      const query = `SELECT EVENT_TABLE.event_id, EVENT_TABLE.title,EVENT_TABLE.description, EVENT_TABLE.location, 
+        EVENT_TABLE.start_at, EVENT_TABLE.end_at, USER_TABLE.user_id, USER_TABLE.name as user_name FROM EVENT_TABLE
         INNER JOIN ATTENDEE_TABLE ON ATTENDEE_TABLE.event_id = EVENT_TABLE.event_id
         INNER JOIN USER_TABLE ON USER_TABLE.user_id = ATTENDEE_TABLE.user_id
         WHERE USER_TABLE.user_id = $1`;
 
       const params = [user_id];
 
-      const events = await this.query(query,params);
+      const result = await this.query(query,params);
+      const events = getNomalizedList(result);
       return events;
     }
 
